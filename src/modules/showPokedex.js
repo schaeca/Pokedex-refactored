@@ -1,14 +1,8 @@
+import typeColors from "./typeColors";
+
 const storedData = localStorage.getItem("caughtPokemons");
 let pokeArray = storedData ? JSON.parse(storedData) : [];
 const container = document.getElementById("pokemon-container");
-
-const typeColors = {
-    grass: "bg-green-400", fire: "bg-red-500", water: "bg-blue-400",
-    bug: "bg-lime-500", poison: "bg-purple-400", psychic: "bg-pink-400",
-    ghost: "bg-purple-700", ground: "bg-yellow-700", fairy: "bg-pink-200",
-    fighting: "bg-orange-600", rock: "bg-stone-400", electric: "bg-yellow-300",
-    ice: "bg-cyan-200", dragon: "bg-indigo-600", normal: "bg-gray-300"
-};
 
 window.handleNote = function (id) {
     const oldNote = pokeArray.find(p => p.id === id)?.notes || "";

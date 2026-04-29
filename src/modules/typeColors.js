@@ -16,3 +16,4 @@ const typeColors = {
     "normal": "bg-gray-300"
 };
 
+export default typeColors
