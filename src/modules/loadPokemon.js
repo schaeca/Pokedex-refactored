@@ -1,9 +1,7 @@
 import { container } from "./main"
 import { path } from "./main"
 import { caughtPokemons } from "./main"
-import { pokeCardArray
-    
- } from "./main"
+import { pokeCardArray } from "./main"
 async function loadPokemon() {
     let count = 1
     while (count < 151) {

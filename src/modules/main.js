@@ -1,4 +1,8 @@
 import loadPokemon from "./loadPokemon";
+import { markButtonSaved } from "./styleButtons";
+import { markButtonFree } from "./styleButtons";
+import pokemonHandler from "./pokemonHandler";
+
 //define the container where the pokecards will be displayed
 export const container = document.getElementById("pokemon-container")
 //the path of the pokemon API
@@ -20,42 +24,22 @@ function clickHandler(e) {
     }
 }
 
-//function to save or unsave pokemons in the local storage and style the heart button accordingly
-function pokemonHandler(e) {
-    e.preventDefault()
-    const buttonID = Number(e.target.id)
-    const index = buttonID - 1
-    const itemToStore = pokeCardArray[index]
-
-    //saving process
-    //is the pokemon already caught? --> check if the pokemons id can be found in the caughtPokemons array)
-   if (!caughtPokemons.some(i => Number(i.id) == buttonID)) {
-        //if it cannot be found, add that pokemon to the caughtPokemons array 
-        caughtPokemons.push(itemToStore)       
-        //pokemon has been saved, caughtPokemons array should be updated --> save the new caughtPokemons array to the local storage
-        localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
-        //style the heart button accordingly
-        markButtonSaved(buttonID)
-    } else {
-        //unsaving process
-        //the pokemon was already caught, so it needs to be removed from the caughtPokemons array
-        caughtPokemons = caughtPokemons.filter(i => Number(i.id) !== buttonID)        
-        //the filter returns all pokemons that do not have the id being checked right now --> so the pokemon with that id has been removed and the caughtPokemons array has been updated accordingly
-        //save the new caugthPokemnons array to the local storage
-        localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
-        //style the heart button accordingly
-        markButtonFree(buttonID)
-    }
+export function getCaughtPokemons() {
+    return caughtPokemons
 }
 
-//style the heart button as filled heart to show the pokemon has been saved
-function markButtonSaved(buttonID) {
-    let pokeButton = document.getElementById(buttonID)
-    pokeButton.textContent = "♥"
+export function savePokemon(itemToStore){
+    caughtPokemons.push(itemToStore)
+    save()
 }
 
-//style the heart button as empty heart to show the pokemon has been removed
-function markButtonFree(buttonID) {
-    let pokeButton = document.getElementById(buttonID)
-    pokeButton.textContent = "♡"
+export function removePokemon(buttonID){
+    caughtPokemons = caughtPokemons.filter(p=>Number(p.id) !== buttonID)
+    //  (only filter the ones that do not equal the id)
+    save()
 }
+
+export function save(){
+    localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
+}
+
