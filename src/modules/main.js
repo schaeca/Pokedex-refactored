@@ -3,7 +3,7 @@ const container = document.getElementById("pokemon-container")
 //the path of the pokemon API
 const path = "https://pokeapi.co/api/v2/pokemon"
 //define the array of the pokemons either as empty array if no pokemon has been saved/caught before or as the array of pokemons saved in the local storage
-let caughtPokemons = JSON.parse(localStorage.getItem("caughtPokemons")) || []
+let caughtPokemons = JSON.parse(localStorage.getItem("caughtPokemons")) || [];
 //define the array that will be used for saving the pokemons in the local storage
 let pokeCardArray = []
 
@@ -67,9 +67,8 @@ async function loadPokemon() {
                 type: type,
             }
 
-            const wasCaught = caughtPokemons.some(i => i.id === pokeID)
-            let heart
-            if (!wasCaught) { heart = "♡" } else { heart = "♥" }
+           const wasCaught = caughtPokemons.some(i => i.id === pokeID)
+           let heart = wasCaught ? "♥" : "♡"
 
             pokeCardArray.push(pokeCard)
 
@@ -111,25 +110,22 @@ function clickHandler(e) {
 function pokemonHandler(e) {
     e.preventDefault()
     const buttonID = Number(e.target.id)
-    console.log(`buttonID: ${buttonID}`);
     const index = buttonID - 1
     const itemToStore = pokeCardArray[index]
-    console.log(itemToStore);
 
     //saving process
     //is the pokemon already caught? --> check if the pokemons id can be found in the caughtPokemons array)
-    if (!caughtPokemons.some(i => Number(i.id) == buttonID)) {
+   if (!caughtPokemons.some(i => Number(i.id) == buttonID)) {
         //if it cannot be found, add that pokemon to the caughtPokemons array 
-        caughtPokemons.push(itemToStore)
+        caughtPokemons.push(itemToStore)       
         //pokemon has been saved, caughtPokemons array should be updated --> save the new caughtPokemons array to the local storage
         localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
         //style the heart button accordingly
         markButtonSaved(buttonID)
-
     } else {
         //unsaving process
         //the pokemon was already caught, so it needs to be removed from the caughtPokemons array
-        caughtPokemons = caughtPokemons.filter(i => Number(i.id) !== buttonID)
+        caughtPokemons = caughtPokemons.filter(i => Number(i.id) !== buttonID)        
         //the filter returns all pokemons that do not have the id being checked right now --> so the pokemon with that id has been removed and the caughtPokemons array has been updated accordingly
         //save the new caugthPokemnons array to the local storage
         localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
