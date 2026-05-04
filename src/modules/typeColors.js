@@ -13,7 +13,8 @@ const typeColors = {
     "electric": "bg-yellow-300",
     "ice": "bg-blue-200",
     "dragon": "bg-indigo-500",
-    "normal": "bg-gray-300"
+    "normal": "bg-gray-300",
+    "flying" : "bg-blue-100"
 };
 
 export default typeColors
