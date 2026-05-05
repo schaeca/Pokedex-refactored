@@ -7,7 +7,13 @@ async function loadPokemon() {
   for (let count = 1; count < 151; count++) {
     try {
       const res = await fetch(`${path}/${count}`);
+
+      if (!res.ok) {
+        throw new Error(`HTTP Error: ${res.status}`);
+      }
+
       const data = await res.json();
+      if (!data) continue;
       const type = renderTypes(data.types);
       const name = data.name;
       const image = data.sprites.other.home.front_default;
@@ -43,19 +49,27 @@ async function loadPokemon() {
       );
       container.innerHTML += newHTML;
     } catch (err) {
-      if (error.status === 404) {
-        showUserFeedback("Not found.");
-      } else if (error.status >= 500) {
-        showUserFeedback(
-          "The Poke API is currently overloaded. Please try at a later point.",
-          { showRetry: true },
-        );
-      } else {
-        showUserFeedback("An unexpected network error occured.");
+      let message = "Something went wrong.";
+
+      if (err.message.includes("HTTP Error")) {
+        message = "Server error. Please try again later.";
+      } else if (err.message.includes("Failed to fetch")) {
+        message = "No internet connection. Check your network.";
+      } else if (err.message.includes("Timeout")) {
+        message = "Request took too long. Try again.";
       }
+      showPokeError(message);
       console.error("Error while fetching data: ", err);
+      return null;
     }
   }
+}
+
+function showPokeError(message) {
+  const errorDiv = document.createElement("div");
+  errorDiv.textContent = message;
+  errorDiv.className = "text-red-500";
+  container.appendChild(errorDiv);
 }
 
 export default loadPokemon;

@@ -15,7 +15,7 @@ window.handleNote = function (id) {
 };
 
 window.handleRelease = function (id) {
-    if (confirm("Pokémon freilassen?")) {
+    if (confirm("Release Pokémon?")) {
         pokeArray = pokeArray.filter(p => p.id !== id);
         localStorage.setItem("caughtPokemons", JSON.stringify(pokeArray));
         renderPokedex();
@@ -26,7 +26,7 @@ function renderPokedex() {
     if (!container) return;
     container.innerHTML = "";
     if (pokeArray.length === 0) {
-        container.innerHTML = `<p class="text-gray-500 col-span-full text-center py-10">Dein PokéDex ist leer.</p>`;
+        container.innerHTML = `<p class="text-gray-500 col-span-full text-center py-10">Your PokéDex is empty.</p>`;
         return;
     }
 
