@@ -12,3 +12,13 @@ function renderTypes(types) {
 }
 
 export default renderTypes;
+
+export function renderTypesFromCaughtPokemons (types){
+  return types.map(t=> {
+    const typeName = t.name
+    const color = typeColors[typeName] || "bg-gray-400";
+
+    return `<span class="rounded-3xl py-1 px-3 text-xs text-white uppercase ${color}">${typeName}</span>`;
+  })
+  .join(" ")
+}

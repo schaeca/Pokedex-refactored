@@ -14,7 +14,8 @@ async function loadPokemon() {
 
       const data = await res.json();
       if (!data) continue;
-      const type = renderTypes(data.types);
+      const types = renderTypes(data.types);
+      const type = data.types.map(t=> {return {name: t.type.name}})      
       const name = data.name;
       const image = data.sprites.other.home.front_default;
 
@@ -45,7 +46,7 @@ async function loadPokemon() {
         heart,
         image,
         name,
-        type,
+        types,
       );
       container.innerHTML += newHTML;
     } catch (err) {
