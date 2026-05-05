@@ -1,9 +1,10 @@
-import { container, path, caughtPokemons, pokeCardArray } from "./main";
+import { container, path, pokeCardArray, getCaughtPokemons} from "./main";
 import typeColors from "./typeColors";
 import renderTypes from "./renderTypes";
 import createPokemonCard from "./createPokemonCard";
 
 async function loadPokemon() {
+  const caughtPokemons = getCaughtPokemons()
   for (let count = 1; count < 151; count++) {
     try {
       const res = await fetch(`${path}/${count}`);
@@ -37,7 +38,12 @@ async function loadPokemon() {
 
       pokeCardArray.push(pokeCard);
 
-      const wasCaught = caughtPokemons.some((i) => i.id === pokeID);
+      let wasCaught
+      if(caughtPokemons.length===0){
+        wasCaught = false
+      } else{
+        wasCaught = caughtPokemons.some((i) => i.id === pokeID);
+      }
       let heart = wasCaught ? "♥" : "♡";
 
       const newHTML = createPokemonCard(
@@ -60,7 +66,7 @@ async function loadPokemon() {
         message = "Request took too long. Try again.";
       }
       showPokeError(message);
-      console.error("Error while fetching data: ", err);
+      console.error("Error while fetching data: ", err.message || err);
       return null;
     }
   }

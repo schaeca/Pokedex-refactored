@@ -11,12 +11,14 @@ export const path = "https://pokeapi.co/api/v2/pokemon"
 export let caughtPokemons = JSON.parse(localStorage.getItem("caughtPokemons")) || [];
 //define the array that will be used for saving the pokemons in the local storage
 export let pokeCardArray = []
+console.log(caughtPokemons.length);
+
 
 if (container && !document.body.classList.contains("pokedex")) {
     loadPokemon()
-    container.addEventListener("click", clickHandler)
 } else{}
 
+container.addEventListener("click", clickHandler)
 
 //function for clicking the "heart button"
 function clickHandler(e) {
@@ -29,8 +31,8 @@ export function getCaughtPokemons() {
     return caughtPokemons
 }
 
-export function addPokemon(itemToStore){
-    caughtPokemons.push(itemToStore)
+export function addPokemon(itemToStore){    
+    caughtPokemons.push(itemToStore)    
     save()
 }
 

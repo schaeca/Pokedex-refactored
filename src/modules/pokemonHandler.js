@@ -10,15 +10,20 @@ function pokemonHandler(e) {
     
     //check if pokemon was already saved (check if id of the pokemon can be found in the saved array)
     //if not save the pokemon
-   if (!caughtPokemons.some(i => Number(i.id) === buttonID)) {
-        addPokemon(itemToStore) 
-        //style the heart button accordingly
+    if (caughtPokemons.length === 0){
+        addPokemon(itemToStore)
         markButtonSaved(buttonID)
-    } else {
-        //else remove the pokemon
-        removePokemon(buttonID)      
-        //style the heart button accordingly
-        markButtonFree(buttonID)
+    } else{   
+        if (!caughtPokemons.some(i => Number(i.id) === buttonID)) {
+            addPokemon(itemToStore) 
+            //style the heart button accordingly
+            markButtonSaved(buttonID)
+        } else {
+            //else remove the pokemon
+            removePokemon(buttonID)      
+            //style the heart button accordingly
+            markButtonFree(buttonID)
+        }
     }
 }
 
