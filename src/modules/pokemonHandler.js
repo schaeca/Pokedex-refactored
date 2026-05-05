@@ -1,4 +1,4 @@
-import { getCaughtPokemons, savePokemon, removePokemon, pokeCardArray, save} from "./main"
+import { getCaughtPokemons, addPokemon, removePokemon, pokeCardArray, save} from "./main"
 import { markButtonFree, markButtonSaved } from "./styleButtons"
 
 function pokemonHandler(e) {
@@ -11,7 +11,7 @@ function pokemonHandler(e) {
     //check if pokemon was already saved (check if id of the pokemon can be found in the saved array)
     //if not save the pokemon
    if (!caughtPokemons.some(i => Number(i.id) === buttonID)) {
-        savePokemon(itemToStore) 
+        addPokemon(itemToStore) 
         //style the heart button accordingly
         markButtonSaved(buttonID)
     } else {
