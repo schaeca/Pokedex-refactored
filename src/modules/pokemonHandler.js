@@ -1,17 +1,12 @@
 import { getCaughtPokemons, addPokemon, removePokemon, pokeCardArray, save} from "./main"
 import { markButtonFree, markButtonSaved } from "./styleButtons"
 
-function pokemonHandler(e) {
-    console.log("pokemonHandler started");
-    
+function pokemonHandler(e) {    
     e.preventDefault()
-    console.log(e);
     const buttonID = Number(e.target.id)
     const index = buttonID - 1
     const itemToStore = pokeCardArray[index]
-    const caughtPokemons = getCaughtPokemons()
-    console.log(caughtPokemons);
-    
+    const caughtPokemons = getCaughtPokemons()    
     
     //check if pokemon was already saved (check if id of the pokemon can be found in the saved array)
     //if not save the pokemon

@@ -18,9 +18,7 @@ if (container && !document.body.classList.contains("pokedex")) {
     container.addEventListener("click", clickHandler)
     
     //function for clicking the "heart button"
-    function clickHandler(e) {
-        console.log("clickhandler started");
-        
+    function clickHandler(e) {        
         if (e.target.classList.contains("catchButton")) {
             pokemonHandler(e)
         }
