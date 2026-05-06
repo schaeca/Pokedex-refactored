@@ -11,39 +11,38 @@ export const path = "https://pokeapi.co/api/v2/pokemon"
 export let caughtPokemons = JSON.parse(localStorage.getItem("caughtPokemons")) || [];
 //define the array that will be used for saving the pokemons in the local storage
 export let pokeCardArray = []
-console.log(caughtPokemons.length);
-
 
 if (container && !document.body.classList.contains("pokedex")) {
     loadPokemon()
+    
+    container.addEventListener("click", clickHandler)
+    
+    //function for clicking the "heart button"
+    function clickHandler(e) {
+        console.log("clickhandler started");
+        
+        if (e.target.classList.contains("catchButton")) {
+            pokemonHandler(e)
+        }
+    }    
+    
 } else{}
 
-container.addEventListener("click", clickHandler)
-
-//function for clicking the "heart button"
-function clickHandler(e) {
-    if (e.target.classList.contains("catchButton")) {
-        pokemonHandler(e)
-    }
-}
-
 export function getCaughtPokemons() {
-    return caughtPokemons
-}
+        return caughtPokemons
+    }
 
 export function addPokemon(itemToStore){    
-    caughtPokemons.push(itemToStore)    
-    save()
-}
+        caughtPokemons.push(itemToStore)    
+        save()
+    }
 
 export function removePokemon(buttonID){
-    caughtPokemons = caughtPokemons.filter(p=>Number(p.id) !== buttonID)
-    //  (only filter the ones that do not equal the id)
-    save()
-}
-
+        caughtPokemons = caughtPokemons.filter(p=>Number(p.id) !== buttonID)
+        //  (only filter the ones that do not equal the id)
+        save()
+    }
+    
 export function save(){
     localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons))
 }
-
-
